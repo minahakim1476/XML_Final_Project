@@ -1,0 +1,15 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.XMLFinalProject" parent="Theme.Material3.DayNight">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.XMLFinalProject" parent="Base.Theme.XMLFinalProject" />
+
+    <style name="Theme.NewsSplashScreen" parent="Theme.SplashScreen">
+<!--        <item name="windowSplashScreenAnimatedIcon">@mipmap/news_ic</item>-->
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Theme.XMLFinalProject</item>
+    </style>
+</resources>
