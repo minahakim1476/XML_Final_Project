@@ -1,6 +1,6 @@
 package com.example.xmlfinalproject
 
-import android.content.Context
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -46,12 +46,22 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
-        val country = sharedPreferences.getString("country", "us")!!
+
+//Change category from CategoryActivity - Yahya Aboabdo
+
         category = intent.getStringExtra("category")!!
-        setTitle(category.capitalize())
+
+
+
+        val sharedPrefs = getSharedPreferences("NewsPrefs", MODE_PRIVATE)
+        val country = sharedPrefs.getString("COUNTRY_KEY", "us") ?: "us"
+
+
+
+        setTitle(category.replaceFirstChar { it.uppercase() })
 
         getNews(category, country)
+
 
         auth = Firebase.auth
 
@@ -73,36 +83,38 @@ class MainActivity : AppCompatActivity() {
 
         val newsCallable = retroFit.create(ArticleCallable::class.java)
 
-        newsCallable.getNews(category = category, country = country).enqueue(object : Callback<News> {
-            override fun onResponse(
-                call: Call<News?>,
-                response: Response<News?>
-            ) {
-                Log.d("ArticleList",category)
-                if (response.isSuccessful) {
-                    val news = response.body()
-                    val adapter = ArticleAdapter(this@MainActivity, news!!)
-                    binding.apply {
-                        articleListItem.adapter = adapter
-                        progressCircular.isVisible = false
-                        swipeToRefresh.isRefreshing = false
-                        articleListItem.isVisible = true
-                    }
-                } else {
-                    Toast.makeText(this@MainActivity, "No News!", Toast.LENGTH_SHORT).show()
-                    val errorString = response.errorBody()?.string()
-                    Log.d("ArticleList", errorString?:"nothing?")
-                }
-            }
 
-            override fun onFailure(
-                call: Call<News?>,
-                t: Throwable
-            ) {
-                binding.progressCircular.isVisible = false
-                Log.d("ArticleList", t.message.toString())
-            }
-        })
+        newsCallable.getNews(category = category, country = country)
+            .enqueue(object : Callback<News> {
+                override fun onResponse(
+                    call: Call<News?>,
+                    response: Response<News?>
+                ) {
+                    Log.d("ArticleList", category)
+                    if (response.isSuccessful) {
+                        val news = response.body()
+                        val adapter = ArticleAdapter(this@MainActivity, news!!)
+                        binding.apply {
+                            articleListItem.adapter = adapter
+                            progressCircular.isVisible = false
+                            swipeToRefresh.isRefreshing = false
+                            articleListItem.isVisible = true
+                        }
+                    } else {
+                        Toast.makeText(this@MainActivity, "No News!", Toast.LENGTH_SHORT).show()
+                        val errorString = response.errorBody()?.string()
+                        Log.d("ArticleList", errorString ?: "nothing?")
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<News?>,
+                    t: Throwable
+                ) {
+                    binding.progressCircular.isVisible = false
+                    Log.d("ArticleList", t.message.toString())
+                }
+            })
     }
 
     private fun signOut() {
@@ -122,18 +134,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_favorites) {
-            startActivity(Intent(this, FavoritesActivity::class.java))
+        if (item.itemId == R.id.log_out_option) {
+            signOut()
             return true
-        } else if (item.itemId == R.id.settings_option) {
+        }
+        else if (item.itemId == R.id.settings_option) {
             val i = Intent(this, SettingsActivity::class.java)
             i.putExtra("activity", "main")
             i.putExtra("category", category)
             startActivity(i)
             finish()
             return true
-        } else if (item.itemId == R.id.log_out_option) {
-            signOut()
+        }
+        else if (item.itemId == R.id.action_favorites){
+            startActivity(Intent(this, FavouritesActivity::class.java))
             return true
         }
         return super.onOptionsItemSelected(item)

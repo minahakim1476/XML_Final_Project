@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.XMLFinalProject">
         <activity
-            android:name=".FavoritesActivity"
+            android:name=".FavouritesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CountriesActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"

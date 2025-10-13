@@ -18,6 +18,4 @@
         android:title="Log out"
         app:showAsAction="never"/>
 
-   
-
 </menu>

@@ -31,34 +31,56 @@ class CategoryActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val i = Intent(this, MainActivity::class.java)
+        val incomingCountry = intent.getStringExtra("country")
+
         binding.apply {
+
             businessCv.setOnClickListener {
+                val i = Intent(this@CategoryActivity, MainActivity::class.java)
                 i.putExtra("category", "business")
+                if (incomingCountry != null) i.putExtra("country", incomingCountry)
                 startActivity(i)
             }
+
             entertainmentCv.setOnClickListener {
+                val i = Intent(this@CategoryActivity, MainActivity::class.java)
                 i.putExtra("category", "entertainment")
+                if (incomingCountry != null) i.putExtra("country", incomingCountry)
                 startActivity(i)
             }
+
             generalCv.setOnClickListener {
+                val i = Intent(this@CategoryActivity, MainActivity::class.java)
                 i.putExtra("category", "general")
+                if (incomingCountry != null) i.putExtra("country", incomingCountry)
                 startActivity(i)
             }
+
             healthCv.setOnClickListener {
+                val i = Intent(this@CategoryActivity, MainActivity::class.java)
                 i.putExtra("category", "health")
+                if (incomingCountry != null) i.putExtra("country", incomingCountry)
                 startActivity(i)
             }
+
             scienceCv.setOnClickListener {
+                val i = Intent(this@CategoryActivity, MainActivity::class.java)
                 i.putExtra("category", "science")
+                if (incomingCountry != null) i.putExtra("country", incomingCountry)
                 startActivity(i)
             }
+
             sportsCv.setOnClickListener {
+                val i = Intent(this@CategoryActivity, MainActivity::class.java)
                 i.putExtra("category", "sports")
+                if (incomingCountry != null) i.putExtra("country", incomingCountry)
                 startActivity(i)
             }
+
             technologyCv.setOnClickListener {
+                val i = Intent(this@CategoryActivity, MainActivity::class.java)
                 i.putExtra("category", "technology")
+                if (incomingCountry != null) i.putExtra("country", incomingCountry)
                 startActivity(i)
             }
         }
@@ -81,17 +103,20 @@ class CategoryActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         if (item.itemId == R.id.log_out_option) {
             signOut()
             return true
-        } else if (item.itemId == R.id.action_favorites) {
-            startActivity(Intent(this, FavoritesActivity::class.java))
-            return true
-        } else if (item.itemId == R.id.settings_option) {
+        }
+        else if (item.itemId == R.id.settings_option) {
             val i = Intent(this, SettingsActivity::class.java)
             i.putExtra("activity", "category")
             startActivity(i)
             finish()
+            return true
+        }
+        else if(item.itemId == R.id.action_favorites){
+            startActivity(Intent(this , FavouritesActivity::class.java))
             return true
         }
         return super.onOptionsItemSelected(item)

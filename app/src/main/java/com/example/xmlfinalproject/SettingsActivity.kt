@@ -64,6 +64,11 @@ class SettingsActivity : AppCompatActivity() {
         binding.signOutBtn.setOnClickListener {
             signOut()
         }
+
+        binding.changeCountryBtn.setOnClickListener {
+            startActivity(Intent(this, CountriesActivity::class.java))
+        }
+
         binding.goBackBtn.setOnClickListener {
             when (incoming) {
                 "main" -> {

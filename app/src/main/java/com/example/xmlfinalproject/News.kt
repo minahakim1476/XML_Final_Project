@@ -7,6 +7,7 @@ import retrofit2.http.Query
 
 class News{
     val articles : List<Article> = listOf()
+   // val favouriteArticles: List<FavouriteArticle> = listOf()
 }
 
 data class Article(
@@ -15,6 +16,12 @@ data class Article(
     val description : String?,
     val url : String,
     val urlToImage : String?
+)
+
+data class FavouriteArticle(
+    var id: String = "",
+    val title: String = "",
+    val url: String = ""
 )
 
 interface ArticleCallable{
