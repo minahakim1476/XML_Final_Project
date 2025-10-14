@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Choose the country you want to see its news: "
+        android:text="@string/choose_country_tv"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:textSize="40sp"
@@ -23,32 +23,32 @@
         android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/us_rbtn"
-            android:text="United States"
+            android:text="@string/united_states"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
             android:id="@+id/br_rbtn"
-            android:text="Brazil"
+            android:text="@string/brazil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
             android:id="@+id/eg_rbtn"
-            android:text="Egypt"
+            android:text="@string/egypt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <RadioButton
             android:id="@+id/de_rbtn"
-            android:text="Germany"
+            android:text="@string/germany"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RadioGroup>
 
     <Button
         android:id="@+id/save_country_btn"
-        android:text="Save"
+        android:text="@string/save"
         android:layout_marginTop="16dp" android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

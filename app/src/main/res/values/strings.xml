@@ -21,4 +21,12 @@
     <string name="settings">Settings</string>
     <string name="go_back">Go Back</string>
     <string name="change_country">Change Country</string>
+    <string name="article_title">Article Title</string>
+    <string name="https_example_com">https://example.com</string>
+    <string name="choose_country_tv">Choose the country you want to see its news:</string>
+    <string name="united_states">United States</string>
+    <string name="brazil">Brazil</string>
+    <string name="egypt">Egypt</string>
+    <string name="germany">Germany</string>
+    <string name="save">Save</string>
 </resources>

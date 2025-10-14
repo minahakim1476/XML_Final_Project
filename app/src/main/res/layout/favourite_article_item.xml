@@ -18,7 +18,7 @@
             android:id="@+id/favouriteTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Article Title"
+            android:text="@string/article_title"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -30,7 +30,7 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="https://example.com"
+            android:text="@string/https_example_com"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp" />
 
