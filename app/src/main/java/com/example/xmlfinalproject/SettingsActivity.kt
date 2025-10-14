@@ -1,11 +1,11 @@
 package com.example.xmlfinalproject
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.xmlfinalproject.databinding.ActivitySettingsBinding
@@ -42,7 +42,7 @@ class SettingsActivity : AppCompatActivity() {
             ) else null
         countryField?.setAdapter(adapter)
 
-        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
         val savedCountry = sharedPreferences.getString("country", "us")
         // Pre-fill the AutoCompleteTextView with the saved value
         countryField?.setText(savedCountry, false)
@@ -50,7 +50,7 @@ class SettingsActivity : AppCompatActivity() {
         // When a user picks an item from the dropdown, save it
         countryField?.setOnItemClickListener { parent: android.widget.AdapterView<*>, view: android.view.View, position: Int, id: Long ->
             val selectedCountry = adapter.getItem(position) ?: return@setOnItemClickListener
-            sharedPreferences.edit().putString("country", selectedCountry).apply()
+            sharedPreferences.edit { putString("country", selectedCountry) }
         }
 
         // Show dropdown when the field is tapped (prevents soft keyboard and behaves like a spinner)

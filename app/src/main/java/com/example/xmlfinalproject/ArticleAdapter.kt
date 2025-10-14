@@ -2,7 +2,6 @@ package com.example.xmlfinalproject
 
 import android.app.Activity
 import android.content.Intent
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ShareCompat

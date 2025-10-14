@@ -1,7 +1,6 @@
 package com.example.xmlfinalproject
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +9,6 @@ import com.example.xmlfinalproject.databinding.ActivityFavouritesBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.toObject
 
 class FavouritesActivity : AppCompatActivity() {
 

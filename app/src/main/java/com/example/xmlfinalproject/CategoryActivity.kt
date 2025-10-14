@@ -104,21 +104,23 @@ class CategoryActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (item.itemId == R.id.log_out_option) {
-            signOut()
-            return true
+        when (item.itemId) {
+            item.itemId -> {
+                signOut()
+                return true
+            }
+            item.itemId -> {
+                val i = Intent(this, SettingsActivity::class.java)
+                i.putExtra("activity", "category")
+                startActivity(i)
+                finish()
+                return true
+            }
+            item.itemId -> {
+                startActivity(Intent(this , FavouritesActivity::class.java))
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
-        else if (item.itemId == R.id.settings_option) {
-            val i = Intent(this, SettingsActivity::class.java)
-            i.putExtra("activity", "category")
-            startActivity(i)
-            finish()
-            return true
-        }
-        else if(item.itemId == R.id.action_favorites){
-            startActivity(Intent(this , FavouritesActivity::class.java))
-            return true
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

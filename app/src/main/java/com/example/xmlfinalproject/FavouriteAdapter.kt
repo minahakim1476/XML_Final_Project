@@ -12,12 +12,12 @@ class FavouriteAdapter(val activity: Activity, var favouriteNews: MutableList<Fa
     class FavouriteViewHolder(val binding: FavouriteArticleItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteAdapter.FavouriteViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
         val binding = FavouriteArticleItemBinding.inflate(activity.layoutInflater, parent, false)
         return FavouriteViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FavouriteAdapter.FavouriteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
         val favourites = favouriteNews[position]
 
         holder.binding.apply {
