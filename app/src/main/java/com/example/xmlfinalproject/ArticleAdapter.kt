@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.xmlfinalproject.databinding.ArticleItemBinding
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 
 class ArticleAdapter(val activity: Activity, val news: News) :
@@ -65,40 +66,37 @@ class ArticleAdapter(val activity: Activity, val news: News) :
     class ArticleViewHolder(val binding: ArticleItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     private fun saveToFirestore(article: Article) {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            Toast.makeText(activity, "Please sign in first!", Toast.LENGTH_SHORT).show()
+            return
+        }
 
-//        val articleData = hashMapOf(
-//            "title" to article.title,
-//            "url" to article.url
-//        )
-        //Log.d("trace", "instace: ${firestore}")
-
+        val userId = user.uid
         val articleData = FavouriteArticle(
             title = article.title,
             url = article.url
         )
 
-        Log.d("trace", "What happened : ${article.title}")
-
-        firestore.collection("favourites")
+        firestore.collection("users")
+            .document(userId)
+            .collection("favourites")
             .add(articleData)
-            .addOnSuccessListener { documentReference ->
+            .addOnSuccessListener {
                 Toast.makeText(
                     activity,
-                    "Article saved to favourites successfully!",
+                    "Article saved to your favourites ",
                     Toast.LENGTH_SHORT
                 ).show()
-                Log.d("trace", "saved in fire store")
+              //  Log.d("trace", "Saved in user/$userId/favourites")
             }
             .addOnFailureListener { e ->
                 Toast.makeText(
                     activity,
-                    "Error to saving article: {${e.message}}",
+                    "Error saving article: ${e.message}",
                     Toast.LENGTH_SHORT
                 ).show()
-                Log.d("trace", "failed: {${e.message}}")
-            }
-            .addOnCompleteListener { task ->
-                Log.d("trace", "COMPLETE: Success=${task.isSuccessful}")
             }
     }
+
 }

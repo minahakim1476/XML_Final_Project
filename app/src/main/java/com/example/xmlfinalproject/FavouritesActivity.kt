@@ -2,11 +2,13 @@ package com.example.xmlfinalproject
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.xmlfinalproject.databinding.ActivityFavouritesBinding
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 
@@ -41,20 +43,34 @@ class FavouritesActivity : AppCompatActivity() {
     }
 
     private fun loadFavourites() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            Toast.makeText(this, "Please log in to see your favourites!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         binding.progressFavourites.isVisible = true
-        firestore
+        val userId = user.uid
+
+        firestore.collection("users")
+            .document(userId)
             .collection("favourites")
             .get()
             .addOnSuccessListener { queryDocumentSnapshots ->
+                favouriteList.clear()
                 queryDocumentSnapshots.forEach {
-                    val currentFav = it.toObject<FavouriteArticle>()
-                    Log.d("trace" , "${currentFav.title}")
+                    val currentFav = it.toObject(FavouriteArticle::class.java)
                     favouriteList.add(currentFav)
                 }
-                val adapter = FavouriteAdapter(this , favouriteList)
+
+                val adapter = FavouriteAdapter(this, favouriteList)
                 binding.favouriteListItem.adapter = adapter
                 binding.progressFavourites.isVisible = false
             }
-
+            .addOnFailureListener { e ->
+              //  Log.e("trace", "Error loading favourites: ${e.message}")
+                binding.progressFavourites.isVisible = false
+            }
     }
+
 }
