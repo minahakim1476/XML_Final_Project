@@ -32,32 +32,6 @@ class SettingsActivity : AppCompatActivity() {
 
         setTitle("Settings")
 
-        val countries = arrayOf("us", "eg")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, countries)
-        // Resolve country_spinner id dynamically to avoid any generated R id issues
-        val countryId = resources.getIdentifier("country_spinner", "id", packageName)
-        val countryField =
-            if (countryId != 0) binding.root.findViewById<com.google.android.material.textfield.MaterialAutoCompleteTextView>(
-                countryId
-            ) else null
-        countryField?.setAdapter(adapter)
-
-        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
-        val savedCountry = sharedPreferences.getString("country", "us")
-        // Pre-fill the AutoCompleteTextView with the saved value
-        countryField?.setText(savedCountry, false)
-
-        // When a user picks an item from the dropdown, save it
-        countryField?.setOnItemClickListener { parent: android.widget.AdapterView<*>, view: android.view.View, position: Int, id: Long ->
-            val selectedCountry = adapter.getItem(position) ?: return@setOnItemClickListener
-            sharedPreferences.edit { putString("country", selectedCountry) }
-        }
-
-        // Show dropdown when the field is tapped (prevents soft keyboard and behaves like a spinner)
-        countryField?.let {
-            it.isFocusable = false
-            it.setOnClickListener { _ -> it.showDropDown() }
-        }
 
         val incoming = intent.getStringExtra("activity")
         val incomingCategory = intent.getStringExtra("category")
@@ -70,15 +44,6 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.goBackBtn.setOnClickListener {
-            when (incoming) {
-                "main" -> {
-                    val i = Intent(this, MainActivity::class.java)
-                    i.putExtra("category", incomingCategory)
-                    startActivity(i)
-                }
-
-                "category" -> startActivity(Intent(this, CategoryActivity::class.java))
-            }
             finish()
         }
     }

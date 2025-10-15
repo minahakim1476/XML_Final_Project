@@ -18,6 +18,8 @@ class CategoryActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var incomingCountry: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,59 +33,45 @@ class CategoryActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val incomingCountry = intent.getStringExtra("country")
+        incomingCountry = intent.getStringExtra("country").toString()
 
         binding.apply {
 
             businessCv.setOnClickListener {
-                val i = Intent(this@CategoryActivity, MainActivity::class.java)
-                i.putExtra("category", "business")
-                if (incomingCountry != null) i.putExtra("country", incomingCountry)
-                startActivity(i)
+                listNewsWithCategory("business")
             }
 
             entertainmentCv.setOnClickListener {
-                val i = Intent(this@CategoryActivity, MainActivity::class.java)
-                i.putExtra("category", "entertainment")
-                if (incomingCountry != null) i.putExtra("country", incomingCountry)
-                startActivity(i)
+                listNewsWithCategory("entertainment")
             }
 
             generalCv.setOnClickListener {
-                val i = Intent(this@CategoryActivity, MainActivity::class.java)
-                i.putExtra("category", "general")
-                if (incomingCountry != null) i.putExtra("country", incomingCountry)
-                startActivity(i)
+                listNewsWithCategory("general")
             }
 
             healthCv.setOnClickListener {
-                val i = Intent(this@CategoryActivity, MainActivity::class.java)
-                i.putExtra("category", "health")
-                if (incomingCountry != null) i.putExtra("country", incomingCountry)
-                startActivity(i)
+                listNewsWithCategory("health")
             }
 
             scienceCv.setOnClickListener {
-                val i = Intent(this@CategoryActivity, MainActivity::class.java)
-                i.putExtra("category", "science")
-                if (incomingCountry != null) i.putExtra("country", incomingCountry)
-                startActivity(i)
+                listNewsWithCategory("science")
             }
 
             sportsCv.setOnClickListener {
-                val i = Intent(this@CategoryActivity, MainActivity::class.java)
-                i.putExtra("category", "sports")
-                if (incomingCountry != null) i.putExtra("country", incomingCountry)
-                startActivity(i)
+                listNewsWithCategory("sports")
             }
 
             technologyCv.setOnClickListener {
-                val i = Intent(this@CategoryActivity, MainActivity::class.java)
-                i.putExtra("category", "technology")
-                if (incomingCountry != null) i.putExtra("country", incomingCountry)
-                startActivity(i)
+                listNewsWithCategory("technology")
             }
         }
+    }
+
+    private fun listNewsWithCategory(category: String) {
+        val i = Intent(this@CategoryActivity, MainActivity::class.java)
+        i.putExtra("category", category)
+        if (incomingCountry != null) i.putExtra("country", incomingCountry)
+        startActivity(i)
     }
 
     private fun signOut() {
@@ -105,21 +93,23 @@ class CategoryActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when (item.itemId) {
-            item.itemId -> {
+            R.id.log_out_option -> {
                 signOut()
                 return true
             }
-            item.itemId -> {
+
+            R.id.settings_option -> {
                 val i = Intent(this, SettingsActivity::class.java)
                 i.putExtra("activity", "category")
                 startActivity(i)
-                finish()
                 return true
             }
-            item.itemId -> {
-                startActivity(Intent(this , FavouritesActivity::class.java))
+
+            R.id.action_favorites -> {
+                startActivity(Intent(this, FavouritesActivity::class.java))
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }

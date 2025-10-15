@@ -55,7 +55,7 @@ class CountriesActivity : AppCompatActivity() {
             val i = Intent(this, CategoryActivity::class.java)
             i.putExtra("country", selectedCountry)
             startActivity(i)
-            finish()
+            finishAffinity()
         }
 
     }

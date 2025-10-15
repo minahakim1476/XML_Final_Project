@@ -29,16 +29,10 @@ class FavouritesActivity : AppCompatActivity() {
             insets
         }*/
 
-//        setRecyclerView()
         loadFavourites()
     }
 
-    private fun setRecyclerView() {
-        adapter = FavouriteAdapter(this, favouriteList)
-//        binding.favouriteListItem.layoutManager = LinearLayoutManager(this@FavouritesActivity)
-//        binding.favouriteListItem.adapter = this@FavouritesActivity.adapter
-        binding.favouriteListItem.adapter = adapter
-    }
+
 
     private fun loadFavourites() {
         val user = FirebaseAuth.getInstance().currentUser

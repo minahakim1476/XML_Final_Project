@@ -127,31 +127,34 @@ class MainActivity : AppCompatActivity() {
         finishAffinity()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.logout_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when (item.itemId) {
-            item.itemId -> {
+            R.id.log_out_option -> {
                 signOut()
                 return true
             }
-            item.itemId -> {
+
+            R.id.settings_option -> {
                 val i = Intent(this, SettingsActivity::class.java)
-                i.putExtra("activity", "main")
-                i.putExtra("category", category)
+                i.putExtra("activity", "category")
                 startActivity(i)
                 finish()
                 return true
             }
-            item.itemId -> {
+
+            R.id.action_favorites -> {
                 startActivity(Intent(this, FavouritesActivity::class.java))
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
-    }
+    }*/
 }
